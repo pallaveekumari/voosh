@@ -1,0 +1,21 @@
+.loginbox {
+    height: 20rem;
+    width: 25rem;
+    margin: auto;
+    border: 1px solid blue;
+    border-radius: 10px;
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;  
+    padding: 1rem;  
+}
+.loginbutton{
+    background-color: blue !important;
+    color: white !important;
+    font-weight: bold ;
+}
+.loginGoogle{
+    color: white !important;
+    background-color: blue !important;
+    font-weight: bold;
+}
