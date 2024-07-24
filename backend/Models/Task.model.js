@@ -1,14 +1,17 @@
 const mongoose = require("mongoose");
 
-const userSchema = mongoose.Schema({
+const taskSchema = mongoose.Schema({
   title: { type: String, required: true },
   description: { type: String, required: true },
   column: { type: String, required: true },
-  userID:{type:String,required:true}
+  userID:{ type: mongoose.Schema.Types.ObjectId,
+    ref: "User"},
+    // created_at: { type: Date, default: Date.now },
+    // updated_at: { type: Date, default: Date.now }
 });
 
-const UserModel = mongoose.model('user',userSchema);
+const taskModel = mongoose.model('Task',taskSchema);
 
 module.exports={
-    UserModel
+    taskModel
 }

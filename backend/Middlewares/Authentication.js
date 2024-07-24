@@ -12,8 +12,8 @@ const authentication = (req, res, next) => {
       if (err) {
         return res.status(401).json({ msg: "Token is not valid" });
       } else {
-        // Assuming you want to store userId in req.user
-        req.user = decoded; // decoded contains the payload (including userId)
+        
+        req.user = decoded; 
         next();
       }
     });
