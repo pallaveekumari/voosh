@@ -5,13 +5,14 @@ import { Box, Button, TextField, Typography } from '@mui/material'
 const Login = () => {
   return (
     <>
+    <Typography className={styles.loginText}>Login</Typography>
     <Box className={styles.loginbox}>
     <TextField
       label="Email"  
       placeholder="Enter Email Here" 
       variant="outlined" 
       fullWidth  
-      sx={{ marginBottom: '1rem' }} 
+      
     />
     
     <TextField
