@@ -1,0 +1,38 @@
+.navbar{
+    height: 4rem;
+    width: 100%;
+    background-color: blue;
+    display: flex;
+    /* justify-content: center; */
+    align-items: center;
+    flex-direction: row-reverse;
+    
+}
+.btnbox{
+    height: 4rem;
+    width: 12rem;
+    gap: 1rem;;
+    /* border: 1px solid black; */
+    display: flex;
+    /* justify-content: center; */
+    align-items: center;
+}
+.loginbtn{
+    color: white !important;
+    font: bold;
+    
+}
+.loginbtn:hover{
+    cursor: pointer;
+    background-color: white !important;
+    color: blue !important;
+}
+.signupbtn{
+    color: white !important;
+    font: bold;
+}
+.signupbtn:hover{
+    cursor: pointer;
+    background-color: white !important;
+    color: blue !important;
+}
