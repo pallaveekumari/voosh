@@ -12,7 +12,13 @@ const AppContextProvider = ({ children }) => {
   const handleAddsignup = async (signupdata) => {
     try {
       setsignupBtnLoading(true);
-      let res = await axios.post("http://localhost:8080/signup", signupdata);
+      // Ensure that signupdata keys match those expected by the API
+      const { FirstName, LastName, Email, Password } = signupdata;
+      let res = await axios.post("http://localhost:8080/signup", {
+        name: `${FirstName} ${LastName}`,
+        email: Email,
+        password: Password
+      });
       setsignupBtnLoading(false);
       return res.data;
     } catch (err) {
@@ -21,6 +27,7 @@ const AppContextProvider = ({ children }) => {
       return err.response.data;
     }
   };
+  
 
   const handlelogin = async (payload) => {
     try {
