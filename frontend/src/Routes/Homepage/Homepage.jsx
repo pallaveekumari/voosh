@@ -1,13 +1,14 @@
 import { Box, Button } from "@mui/material";
-import React, { useContext, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import styles from "../Homepage/Homepage.module.css";
 import Navbar from "../../Components/Navbar/Navbar";
 import AddTask from "../../Components/AddTaskPopups/AddTaskPopups";
 import { AppContext } from "../../Context/AppContext";
+import EachTask from "../../Components/EachTask/EachTask";
 
 const Homepage = () => {
   const [openAddTaskPopup, setOpenAddTaskPopup] = useState(false);
-  // const {getProductdata,productdata} = useContext(AppContext)
+  const {getAllTaskData,productdata} = useContext(AppContext)
 
   const handleOpenAddTask = () => {
     setOpenAddTaskPopup(true); // Use setOpenAddTaskPopup to update the state
@@ -17,9 +18,9 @@ const Homepage = () => {
     setOpenAddTaskPopup(false);
   };
 
-  // useEffect(()=>{
-  //  getProductdata()
-  // },[])
+  useEffect(()=>{
+    getAllTaskData()
+  },[getAllTaskData])
   return (
     <>
       <Navbar />
@@ -27,6 +28,11 @@ const Homepage = () => {
         Add Task
       </Button>
       <AddTask open={openAddTaskPopup} handleClose={handleCloseAddTaskPopup} />
+   <Box>
+   {productdata.map((el,i)=>{
+                   return <EachTask element={el} key={i} />
+               })}
+   </Box>
     </>
   );
 };

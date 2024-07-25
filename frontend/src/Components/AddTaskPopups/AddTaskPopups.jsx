@@ -18,7 +18,7 @@ const init = {
 const AddTask = ({ open, handleClose }) => {
   const [formData, setFormData] = useState(init);
   const navigate = useNavigate();
-  const { handleAddTask, getAllTask } = useContext(AppContext);
+  const { handleAddTask, getAllTaskData } = useContext(AppContext);
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -26,7 +26,7 @@ const AddTask = ({ open, handleClose }) => {
     setFormData({ ...formData, [name]: value });
   };
   const handleSubmitForm = async () => {
-    const token = localStorage.getitem("token");
+    const token = localStorage.getItem("token");
     if (!token) {
       navigate("/login");
     } else {
@@ -38,7 +38,7 @@ const AddTask = ({ open, handleClose }) => {
         let res = await handleAddTask(formData, token);
         if (res == 200) {
           alert("Item Added Successfully");
-          await getAllTask();
+          await getAllTaskData();
           handleClose();
         } else {
           alert("Failed to add the product");

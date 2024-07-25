@@ -1,0 +1,17 @@
+.container{
+    height: 15rem;
+    width: 22rem;
+    border: 1px solid blue;
+    background-color: rgb(96, 96, 189);
+    border-radius: 5px;
+}
+.deleteBtn{
+    background-color: red !important;
+    color: white !important;
+    font-weight: bold !important;
+}
+.editBtn{
+    background-color: blue !important;
+    color: white !important;
+    font-weight: bold;
+}

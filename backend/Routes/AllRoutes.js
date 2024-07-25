@@ -19,7 +19,7 @@ AllRoutes.post("/login", Login);
 AllRoutes.post("/addtask", authentication, createTask);
 AllRoutes.put("/updatetask/:id", authentication, updateTask);
 AllRoutes.delete("/deletetask/:id", authentication, deleteTask);
-AllRoutes.get("/allposts", authentication, getAllTasks);
+AllRoutes.get("/alltask", authentication, getAllTasks);
 
 
 module.exports = AllRoutes;

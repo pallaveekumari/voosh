@@ -17,7 +17,7 @@ const AppContextProvider = ({ children }) => {
       let res = await axios.post("http://localhost:8080/signup", {
         name: `${FirstName} ${LastName}`,
         email: Email,
-        password: Password
+        password: Password,
       });
       setsignupBtnLoading(false);
       return res.data;
@@ -27,7 +27,6 @@ const AppContextProvider = ({ children }) => {
       return err.response.data;
     }
   };
-  
 
   const handlelogin = async (payload) => {
     try {
@@ -46,7 +45,7 @@ const AppContextProvider = ({ children }) => {
   const handleDeleteTask = async (id) => {
     try {
       setdeleteBtnLoading(true);
-      const token = localStorage.get("token");
+      const token = localStorage.getItem("token");
       let data = await axios.get(`http://localhost:8080/deletetask/${id}`, {
         headers: {
           Authorization: `Bearer ${token}`,
@@ -61,9 +60,9 @@ const AppContextProvider = ({ children }) => {
     }
   };
 
-  const getAllTask = () => {
+  const getAllTaskData = () => {
     sethomepageDataloading(true);
-    axios.get(`http://localhost:8080/allposts`).then((res) => {
+    axios.get(`http://localhost:8080/alltask`).then((res) => {
       setproductdata(res.data.data);
       sethomepageDataloading(false);
     });
@@ -71,7 +70,7 @@ const AppContextProvider = ({ children }) => {
 
   const handleAddTask = async (payload) => {
     try {
-      const token = localStorage.get("token");
+      const token = localStorage.getItem("token");
       let data = await axios.post(`http://localhost:8080/addtask`, payload, {
         headers: {
           Authorization: `Bearer ${token}`,
@@ -81,7 +80,7 @@ const AppContextProvider = ({ children }) => {
       return data.status;
     } catch (err) {
       console.log("FAILED TO ADD THE PRODUCT ", err);
-      return err.response.status;
+      return err.response ? err.response.status : 500;;
     }
   };
 
@@ -89,25 +88,15 @@ const AppContextProvider = ({ children }) => {
     <AppContext.Provider
       value={{
         handlelogin,
-        getAllTask,
+        getAllTaskData,
         handleDeleteTask,
         homepageDataloading,
         handleAddsignup,
-
-        
-        
-
+        productdata,
         loginBtnLoading,
         signupBtnLoading,
-
         deleteBtnLoading,
-
-        
-        
-        
-        
         handleAddTask,
-        
       }}
     >
       {children}
