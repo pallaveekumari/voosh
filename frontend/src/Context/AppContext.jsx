@@ -8,7 +8,7 @@ const AppContextProvider = ({ children }) => {
   const [loginBtnLoading, setloginBtnLoading] = useState(false);
   const [signupBtnLoading, setsignupBtnLoading] = useState(false);
   const [deleteBtnLoading, setdeleteBtnLoading] = useState(false);
-
+  const [productdata, setproductdata] = useState([]);
   const handleAddsignup = async (signupdata) => {
     try {
       setsignupBtnLoading(true);
@@ -64,7 +64,7 @@ const AppContextProvider = ({ children }) => {
 
   const handleAddTask = async (payload) => {
     try {
-      const token = Cookies.get("token");
+      const token = localStorage.get("token");
       let data = await axios.post(`http://localhost:8080/addtask`, payload, {
         headers: {
           Authorization: `Bearer ${token}`,
@@ -87,22 +87,20 @@ const AppContextProvider = ({ children }) => {
         homepageDataloading,
         handleAddsignup,
 
-        handleDeleteData,
-        getProductdata,
+        
+        
 
         loginBtnLoading,
         signupBtnLoading,
 
         deleteBtnLoading,
 
-        handleDeleteProductByManager,
-        handleUpdateStatus,
-        allordersForManagers,
-        statusOfOrder,
+        
+        
+        
+        
         handleAddTask,
-        getOrderStatus,
-        getAllOrdersForManagers,
-        handleUpdateQuantityByManager,
+        
       }}
     >
       {children}

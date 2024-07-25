@@ -4,7 +4,8 @@
     background-color: blue;
     display: flex;
     align-items: center;
-    flex-direction: row-reverse;
+
+    justify-content: space-between;
     margin-bottom: 2rem;
     
 }
@@ -33,4 +34,11 @@
     cursor: pointer;
     background-color: white !important;
     color: blue !important;
+}
+.vooshLogo{
+    height: 4rem;
+    width: 12rem;
+}
+.vooshLogo:hover{
+    cursor: pointer;
 }
