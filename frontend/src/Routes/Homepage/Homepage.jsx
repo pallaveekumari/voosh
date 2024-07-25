@@ -29,7 +29,7 @@ const Homepage = () => {
       </Button>
       <AddTask open={openAddTaskPopup} handleClose={handleCloseAddTaskPopup} />
    <Box>
-   {productdata.map((el,i)=>{
+   {productdata?.map((el,i)=>{
                    return <EachTask element={el} key={i} />
                })}
    </Box>

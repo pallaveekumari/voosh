@@ -1,7 +1,8 @@
 import React, { createContext, useState } from "react";
-import axios from "axios";
 import { useNavigate } from "react-router-dom";
+
 export const AppContext = createContext();
+
 const AppContextProvider = ({ children }) => {
   const navigate = useNavigate();
   const [homepageDataloading, sethomepageDataloading] = useState(false);
@@ -9,36 +10,50 @@ const AppContextProvider = ({ children }) => {
   const [signupBtnLoading, setsignupBtnLoading] = useState(false);
   const [deleteBtnLoading, setdeleteBtnLoading] = useState(false);
   const [productdata, setproductdata] = useState([]);
+
   const handleAddsignup = async (signupdata) => {
     try {
       setsignupBtnLoading(true);
-      // Ensure that signupdata keys match those expected by the API
       const { FirstName, LastName, Email, Password } = signupdata;
-      let res = await axios.post("http://localhost:8080/signup", {
-        name: `${FirstName} ${LastName}`,
-        email: Email,
-        password: Password,
+      const response = await fetch("http://localhost:8080/signup", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          name: `${FirstName} ${LastName}`,
+          email: Email,
+          password: Password,
+        }),
       });
+      const data = await response.json();
       setsignupBtnLoading(false);
-      return res.data;
+      return data;
     } catch (err) {
       console.log("error", err);
       setsignupBtnLoading(false);
-      return err.response.data;
+      return { error: err.message };
     }
   };
 
   const handlelogin = async (payload) => {
     try {
       setloginBtnLoading(true);
-      let res = await axios.post("http://localhost:8080/login", payload);
+      const response = await fetch("http://localhost:8080/login", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(payload),
+      });
+      const data = await response.json();
       setloginBtnLoading(false);
-      localStorage.setItem("user", JSON.stringify(res.data));
-      return res.data;
+      localStorage.setItem("user", JSON.stringify(data));
+      return data;
     } catch (err) {
       console.log("error", err);
       setloginBtnLoading(false);
-      return err.response.data;
+      return { error: err.message };
     }
   };
 
@@ -46,41 +61,52 @@ const AppContextProvider = ({ children }) => {
     try {
       setdeleteBtnLoading(true);
       const token = localStorage.getItem("token");
-      let data = await axios.get(`http://localhost:8080/deletetask/${id}`, {
+      const response = await fetch(`http://localhost:8080/deletetask/${id}`, {
+        method: "GET",
         headers: {
           Authorization: `Bearer ${token}`,
         },
       });
+      const data = await response.json();
       setdeleteBtnLoading(false);
-      return data.data;
+      return data;
     } catch (err) {
       console.log("error", err);
       setdeleteBtnLoading(false);
-      return err.response.data;
+      return { error: err.message };
     }
   };
 
-  const getAllTaskData = () => {
-    sethomepageDataloading(true);
-    axios.get(`http://localhost:8080/alltask`).then((res) => {
-      setproductdata(res.data.data);
+  const getAllTaskData = async () => {
+    try {
+      sethomepageDataloading(true);
+      const response = await fetch("http://localhost:8080/alltask");
+      const data = await response.json();
+      setproductdata(data.data);
       sethomepageDataloading(false);
-    });
+    } catch (err) {
+      console.log("error", err);
+      sethomepageDataloading(false);
+    }
   };
 
   const handleAddTask = async (payload) => {
     try {
       const token = localStorage.getItem("token");
-      let data = await axios.post(`http://localhost:8080/addtask`, payload, {
+      const response = await fetch("http://localhost:8080/addtask", {
+        method: "POST",
         headers: {
+          "Content-Type": "application/json",
           Authorization: `Bearer ${token}`,
         },
+        body: JSON.stringify(payload),
       });
+      const data = await response.json();
       console.log(data);
       return data.status;
     } catch (err) {
       console.log("FAILED TO ADD THE PRODUCT ", err);
-      return err.response ? err.response.status : 500;;
+      return err.status ? err.status : 500;
     }
   };
 
