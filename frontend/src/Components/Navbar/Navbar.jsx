@@ -14,7 +14,9 @@ const Navbar = () => {
             alt="Voosh Logo"
           />
         </Link>
+        
         <Box className={styles.btnbox}>
+          <Button className={styles.loginbtn} component={Link} to="/todo">Todo List</Button>
           <Button className={styles.loginbtn} component={Link} to="/login">
             Login
           </Button>

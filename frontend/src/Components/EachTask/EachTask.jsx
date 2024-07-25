@@ -1,7 +1,8 @@
 import { Box, Button } from '@mui/material'
-import React, { useContext } from 'react'
+import React, { useContext, useState } from 'react'
 import styles from "../EachTask/EachTask.module.css"
 import { AppContext } from '../../Context/AppContext'
+import EditTaskPopup from '../EditiTaskPopup/EditTaskPopup'
 const EachTask = ({el}) => {
   const{handleDeleteTask,getAllTaskData} =useContext(AppContext)
 
@@ -15,7 +16,14 @@ const EachTask = ({el}) => {
       alert("Failed to delete the product");
     }
   };
-
+  const [openEditTaskPopup, setOpenEditTaskPopup] = useState(false);
+  const handleOpenEditTask = () => {
+      setOpenEditTaskPopup(true); 
+    };
+  
+    const handleCloseEditTaskPopup = () => {
+      setOpenEditTaskPopup(false);
+    };
 
   return (
     <>
@@ -30,7 +38,10 @@ const EachTask = ({el}) => {
           handleDelete(el.id)
         }}
         >Delete</Button>
-        <Button className={styles.editBtn}>Edit</Button>
+        <Button className={styles.editBtn} onClick={handleOpenEditTask}>
+          Edit
+          </Button>
+          <EditTaskPopup open={openEditTaskPopup} handleClose={handleCloseEditTaskPopup}/>
     </Box>
 
     </Box>

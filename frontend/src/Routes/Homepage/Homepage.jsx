@@ -11,7 +11,7 @@ const Homepage = () => {
   const {getAllTaskData,productdata} = useContext(AppContext)
 
   const handleOpenAddTask = () => {
-    setOpenAddTaskPopup(true); // Use setOpenAddTaskPopup to update the state
+    setOpenAddTaskPopup(true); 
   };
 
   const handleCloseAddTaskPopup = () => {
