@@ -129,18 +129,18 @@ const createTask = async (req, res) => {
 
 const updateTask = async (req, res) => {
     const { id } = req.params;
-    const { title, description, column } = req.body;
+    const { title, description, taskdetails } = req.body;
   
     try {
       // Validate inputs
-      if (!title || !description || !column) {
+      if (!title || !description || !taskdetails) {
         return res.status(400).send({ msg: "All fields are required" });
       }
   
       // Find and update the task
       const task = await taskModel.findByIdAndUpdate(
         id,
-        { title, description, column, updated_at: Date.now() },
+        { title, description, taskdetails, updated_at: Date.now() },
         { new: true } // Return the updated document
       );
   
