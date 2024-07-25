@@ -20,7 +20,7 @@ const Homepage = () => {
 
   useEffect(()=>{
     getAllTaskData()
-  },[getAllTaskData])
+  },[])
   return (
     <>
       <Navbar />
@@ -28,7 +28,7 @@ const Homepage = () => {
         Add Task
       </Button>
       <AddTask open={openAddTaskPopup} handleClose={handleCloseAddTaskPopup} />
-   <Box>
+   <Box className={styles.taskDatas}>
    {productdata?.map((el,i)=>{
                    return <EachTask element={el} key={i} />
                })}

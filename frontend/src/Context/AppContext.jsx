@@ -80,7 +80,17 @@ const AppContextProvider = ({ children }) => {
   const getAllTaskData = async () => {
     try {
       sethomepageDataloading(true);
-      const response = await fetch("http://localhost:8080/alltask");
+      const token = localStorage.getItem("token");
+      if (!token) throw new Error("No token found");
+  
+      const response = await fetch("http://localhost:8080/alltask", {
+        method: "GET",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`,
+        },
+      });
+  
       const data = await response.json();
       setproductdata(data.data);
       sethomepageDataloading(false);
