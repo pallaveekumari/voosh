@@ -1,13 +1,16 @@
 import { Box, Button } from "@mui/material";
-import React from "react";
+import React, { useContext } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import styles from "../Navbar/Navbar.module.css";
+import { AppContext } from "../../Context/AppContext";
 
 const Navbar = ({placeofcall}) => {
+  const {setIsLoggedIn,isLoggedIn}=useContext(AppContext)
   const navigate=useNavigate()
   const handleLogout = () => {
     localStorage.removeItem("user");
-    
+    localStorage.removeItem("token")
+    setIsLoggedIn(false)
     navigate("/login");
   };
   return (
@@ -23,14 +26,14 @@ const Navbar = ({placeofcall}) => {
         
         <Box className={styles.btnbox}>
           <Button className={styles.loginbtn} component={Link} to="/todo">Todo List</Button>
-          <Button className={styles.loginbtn} component={Link} to="/login">
+         { !isLoggedIn && <Button className={styles.loginbtn} component={Link} to="/login">
             Login
-          </Button>
-          <Button className={styles.signupbtn} component={Link} to="/signup">
+          </Button>}
+         {!isLoggedIn && <Button className={styles.signupbtn} component={Link} to="/signup">
             Signup
-          </Button>
+          </Button>}
 
-          {placeofcall != "login" && placeofcall != "signup" && (
+          {isLoggedIn && (
          <Button onClick={handleLogout} variant="contained">
            Logout
          </Button>

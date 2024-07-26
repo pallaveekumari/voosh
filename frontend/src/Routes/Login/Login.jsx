@@ -16,7 +16,7 @@ const Login = () => {
   };
 
   const [loginData, setLoginData] = useState(initial);
-  const { handlelogin, loginBtnLoading } = useContext(AppContext);
+  const { handlelogin, loginBtnLoading ,setIsLoggedIn} = useContext(AppContext);
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -61,10 +61,11 @@ const Login = () => {
                 let res = await handlelogin(loginData);
                 if (res.status) {
                   alert(res.msg);
-                  // Store token and user data in local storage
+                 
                   localStorage.setItem("token", res.token);
                   localStorage.setItem("user", JSON.stringify(res.user));
-                  navigate("/"); // Navigate to home or other page
+                  setIsLoggedIn(true)
+                  navigate("/");
                 } else {
                   alert(res.msg);
                 }

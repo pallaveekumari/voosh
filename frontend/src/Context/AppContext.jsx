@@ -11,6 +11,10 @@ const AppContextProvider = ({ children }) => {
   const [deleteBtnLoading, setdeleteBtnLoading] = useState(false);
   const [productdata, setproductdata] = useState([]);
 
+ const [isLoggedIn,setIsLoggedIn]=useState(false) 
+
+ const [editData,setEditData]=useState({})
+
   const handleAddsignup = async (signupdata) => {
     try {
       setsignupBtnLoading(true);
@@ -62,7 +66,7 @@ const AppContextProvider = ({ children }) => {
       setdeleteBtnLoading(true);
       const token = localStorage.getItem("token");
       const response = await fetch(`http://localhost:8080/deletetask/${id}`, {
-        method: "GET",
+        method: "DELETE",
         headers: {
           Authorization: `Bearer ${token}`,
         },
@@ -92,6 +96,7 @@ const AppContextProvider = ({ children }) => {
       });
   
       const data = await response.json();
+      console.log(data)
       setproductdata(data.data);
       sethomepageDataloading(false);
     } catch (err) {
@@ -133,6 +138,11 @@ const AppContextProvider = ({ children }) => {
         signupBtnLoading,
         deleteBtnLoading,
         handleAddTask,
+        isLoggedIn,
+        setIsLoggedIn,
+        editData,
+        setEditData
+
       }}
     >
       {children}

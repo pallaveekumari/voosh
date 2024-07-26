@@ -35,12 +35,13 @@ const AddTask = ({ open, handleClose }) => {
         formData.description != "" &&
         formData.taskdetails != ""
       ) {
+        try{
         let res = await handleAddTask(formData, token);
-        if (res == 200) {
+        console.log("response",res)
           alert("Item Added Successfully");
           await getAllTaskData();
           handleClose();
-        } else {
+        } catch(err) {
           alert("Failed to add the product");
         }
       } else {

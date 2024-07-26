@@ -4,10 +4,8 @@ const taskSchema = mongoose.Schema({
   title: { type: String, required: true },
   description: { type: String, required: true },
   taskdetails: { type: String, required: true },
-  userID:{ type: mongoose.Schema.Types.ObjectId,
-    ref: "User"},
-    // created_at: { type: Date, default: Date.now },
-    // updated_at: { type: Date, default: Date.now }
+  userID:{ type: mongoose.Schema.Types.ObjectId,ref: "User"},
+    
 });
 
 const taskModel = mongoose.model('Task',taskSchema);
