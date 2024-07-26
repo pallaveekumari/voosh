@@ -1,4 +1,4 @@
-import React, { useContext, useEffect } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import {
   TextField,
   Box,
@@ -6,19 +6,31 @@ import {
   Select,
   MenuItem,
   Typography,
+  Card,
 } from "@mui/material";
 import Navbar from "../../Components/Navbar/Navbar";
 import styles from "../Todo/Todo.module.css";
 import EachTask from "../../Components/EachTask/EachTask";
 import { AppContext } from "../../Context/AppContext";
-
+import Draggable from "react-draggable";
 const Todo = () => {
-  const { productdata,getAllTaskData } = useContext(AppContext);
+  const { productdata, getAllTaskData, handleSearch, handleSort } =
+    useContext(AppContext);
+  const [searchTerm, setSearchTerm] = useState("");
+  const [sortOrder, setSortOrder] = useState("asc");
 
-  useEffect(()=>{
-    getAllTaskData()
-  },[])
+  useEffect(() => {
+    getAllTaskData();
+  }, []);
+  const handleSearchChange = (e) => {
+    setSearchTerm(e.target.value);
+    handleSearch(e.target.value);
+  };
 
+  const handleSortChange = (e) => {
+    setSortOrder(e.target.value);
+    handleSort(e.target.value);
+  };
 
   return (
     <>
@@ -30,6 +42,8 @@ const Todo = () => {
             <TextField
               label="Search"
               variant="outlined"
+              value={searchTerm}
+              onChange={handleSearchChange}
               style={{ width: "300px" }}
             />
             <Button variant="contained" color="primary">
@@ -39,7 +53,9 @@ const Todo = () => {
             <Typography variant="body1">Sort by</Typography>
             <Select
               variant="outlined"
-              defaultValue="asc"
+              // defaultValue="asc"
+              value={sortOrder}
+              onChange={handleSortChange}
               style={{ width: "150px" }}
             >
               <MenuItem value="asc">Ascending</MenuItem>
@@ -51,11 +67,14 @@ const Todo = () => {
         <Box className={styles.todocontainer}>
           <Box className={styles.eachtodocontainer}>
             <Box className={styles.todotext}>Todo</Box>
-
             <Box className={styles.taskDatas}>
-              {productdata?.map((el, i) => {
-                return <EachTask element={el} key={i} />;
-              })}
+              <Draggable>
+                <Card>
+                  {productdata?.map((el, i) => {
+                    return <EachTask element={el} key={i} />;
+                  })}
+                </Card>
+              </Draggable>
             </Box>
           </Box>
           <Box className={styles.eachtodocontainer}>

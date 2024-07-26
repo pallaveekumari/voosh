@@ -14,7 +14,12 @@ const [updateBtnLoading,setUpdateBtnLoading]=useState(false)
  const [isLoggedIn,setIsLoggedIn]=useState(false) 
 
  const [editData,setEditData]=useState({})
+ const [searchTerm, setSearchTerm] = useState("");
+  const [sortOrder, setSortOrder] = useState("asc");
 
+
+
+  
   const handleAddsignup = async (signupdata) => {
     try {
       setsignupBtnLoading(true);
@@ -149,6 +154,27 @@ const [updateBtnLoading,setUpdateBtnLoading]=useState(false)
     }
   };
 
+  const handleSearch = (e) => {
+    setSearchTerm(e.target.value);
+  };
+
+  const handleSort = (order) => {
+    setSortOrder(order);
+    setproductdata((prevData) =>
+      [...prevData].sort((a, b) =>
+        order === "asc"
+          ? a.title.localeCompare(b.title)
+          : b.title.localeCompare(a.title)
+      )
+    );
+  };
+
+  const filteredTasks = productdata.filter(
+    (task) =>
+      task.title.toLowerCase().includes(searchTerm) ||
+      task.description.toLowerCase().includes(searchTerm)
+  );
+
   return (
     <AppContext.Provider
       value={{
@@ -169,7 +195,10 @@ const [updateBtnLoading,setUpdateBtnLoading]=useState(false)
         setEditData,
         handleUpdateTask,
         updateBtnLoading,
-        setUpdateBtnLoading
+        setUpdateBtnLoading,
+        handleSearch,
+        handleSort,
+
 
 
       }}
