@@ -1,7 +1,7 @@
 .container{
     height: 10rem;
     width: 22rem;
-    border: 1px solid blue;
+    /* border: 1px solid blue; */
     background-color: rgb(96, 96, 189);
     border-radius: 5px;
 }

@@ -11,7 +11,6 @@ import Navbar from "../../Components/Navbar/Navbar";
 import styles from "../Todo/Todo.module.css";
 
 const Todo = () => {
-  
   return (
     <>
       <Box>
@@ -43,7 +42,7 @@ const Todo = () => {
         <Box className={styles.todocontainer}>
           <Box className={styles.eachtodocontainer}>
             <Box className={styles.todotext}>Todo</Box>
-            
+
             <Box>hello</Box>
             <Box>we are chening</Box>
             <Box>we are in progress</Box>

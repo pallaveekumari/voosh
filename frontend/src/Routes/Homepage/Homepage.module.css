@@ -3,13 +3,13 @@
     color: white !important;
 }
 .taskDatas{
-    border: 1px solid blue;
+    /* border: 1px solid blue; */
     height: auto;
     width: 100%;
     display: grid;
     grid-template-columns: repeat(3,1fr);
     grid-template-rows: auto;
     gap: 1rem;
-    /* justify-content: center; */
-margin: auto;
+  margin-top: 2rem;
+
 }
