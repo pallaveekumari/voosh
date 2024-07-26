@@ -1,9 +1,15 @@
 import { Box, Button } from "@mui/material";
 import React from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import styles from "../Navbar/Navbar.module.css";
 
-const Navbar = () => {
+const Navbar = ({placeofcall}) => {
+  const navigate=useNavigate()
+  const handleLogout = () => {
+    localStorage.removeItem("user");
+    
+    navigate("/login");
+  };
   return (
     <>
       <Box className={styles.navbar}>
@@ -23,6 +29,12 @@ const Navbar = () => {
           <Button className={styles.signupbtn} component={Link} to="/signup">
             Signup
           </Button>
+
+          {placeofcall != "login" && placeofcall != "signup" && (
+         <Button onClick={handleLogout} variant="contained">
+           Logout
+         </Button>
+       )}
         </Box>
       </Box>
     </>
