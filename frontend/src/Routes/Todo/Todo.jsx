@@ -1,4 +1,4 @@
-import React, { useContext } from "react";
+import React, { useContext, useEffect } from "react";
 import {
   TextField,
   Box,
@@ -9,8 +9,17 @@ import {
 } from "@mui/material";
 import Navbar from "../../Components/Navbar/Navbar";
 import styles from "../Todo/Todo.module.css";
+import EachTask from "../../Components/EachTask/EachTask";
+import { AppContext } from "../../Context/AppContext";
 
 const Todo = () => {
+  const { productdata,getAllTaskData } = useContext(AppContext);
+
+  useEffect(()=>{
+    getAllTaskData()
+  },[])
+
+
   return (
     <>
       <Box>
@@ -43,9 +52,11 @@ const Todo = () => {
           <Box className={styles.eachtodocontainer}>
             <Box className={styles.todotext}>Todo</Box>
 
-            <Box>hello</Box>
-            <Box>we are chening</Box>
-            <Box>we are in progress</Box>
+            <Box className={styles.taskDatas}>
+              {productdata?.map((el, i) => {
+                return <EachTask element={el} key={i} />;
+              })}
+            </Box>
           </Box>
           <Box className={styles.eachtodocontainer}>
             <Box className={styles.todotext}>In Progress</Box>

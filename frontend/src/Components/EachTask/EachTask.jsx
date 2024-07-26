@@ -13,12 +13,12 @@ const EachTask = ({element}) => {
       alert("Task deleted successfully");
      await getAllTaskData()
     } catch(err) {
-      alert("Failed to delete the product");
+      alert("Failed to delete the Data");
     }
   };
   const [openEditTaskPopup, setOpenEditTaskPopup] = useState(false);
   const handleOpenEditTask = () => {
-    setEditData(element)
+      setEditData(element)
       setOpenEditTaskPopup(true); 
     };
   
@@ -29,9 +29,9 @@ const EachTask = ({element}) => {
   return (
     <>
     <Box className={styles.container}>
-<Box>Title:{element?.title} </Box>
-<Box>Desc: {element?.description}</Box>
-<Box>TaskDetails: {element?.taskdetails}</Box>
+<Box>Title:{element?. title} </Box>
+<Box>Desc: {element?. description}</Box>
+<Box>TaskDetails: {element?. taskdetails}</Box>
     
     <Box>
         <Button className={styles.deleteBtn}

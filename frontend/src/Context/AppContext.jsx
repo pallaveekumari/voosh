@@ -10,7 +10,7 @@ const AppContextProvider = ({ children }) => {
   const [signupBtnLoading, setsignupBtnLoading] = useState(false);
   const [deleteBtnLoading, setdeleteBtnLoading] = useState(false);
   const [productdata, setproductdata] = useState([]);
-
+const [updateBtnLoading,setUpdateBtnLoading]=useState(false)
  const [isLoggedIn,setIsLoggedIn]=useState(false) 
 
  const [editData,setEditData]=useState({})
@@ -81,6 +81,30 @@ const AppContextProvider = ({ children }) => {
     }
   };
 
+  const handleUpdateTask = async (id,body) => {
+    try {
+      setUpdateBtnLoading(true);
+      const token = localStorage.getItem("token");
+      const response = await fetch(`http://localhost:8080/updatetask/${id}`, {
+        method: "PUT",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`,
+        },
+        body:JSON.stringify(body)
+      });
+
+      const data = await response.json();
+      setUpdateBtnLoading(false);
+      return data;
+    } catch (err) {
+      console.log("error", err);
+      setUpdateBtnLoading(false);
+      return { error: err.message };
+    }
+  };
+
+
   const getAllTaskData = async () => {
     try {
       sethomepageDataloading(true);
@@ -96,7 +120,7 @@ const AppContextProvider = ({ children }) => {
       });
   
       const data = await response.json();
-      console.log(data)
+      // console.log(data)
       setproductdata(data.data);
       sethomepageDataloading(false);
     } catch (err) {
@@ -117,7 +141,7 @@ const AppContextProvider = ({ children }) => {
         body: JSON.stringify(payload),
       });
       const data = await response.json();
-      console.log(data);
+      // console.log(data);
       return data.status;
     } catch (err) {
       console.log("FAILED TO ADD THE PRODUCT ", err);
@@ -134,6 +158,7 @@ const AppContextProvider = ({ children }) => {
         homepageDataloading,
         handleAddsignup,
         productdata,
+        setproductdata,
         loginBtnLoading,
         signupBtnLoading,
         deleteBtnLoading,
@@ -141,7 +166,11 @@ const AppContextProvider = ({ children }) => {
         isLoggedIn,
         setIsLoggedIn,
         editData,
-        setEditData
+        setEditData,
+        handleUpdateTask,
+        updateBtnLoading,
+        setUpdateBtnLoading
+
 
       }}
     >
