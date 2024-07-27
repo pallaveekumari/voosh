@@ -32,7 +32,8 @@ Together, we shape the future of food service.
    
  - ### Signup.
    #### User can signup themselves by entering the credentials .
-
+   
+-  ### TodoList
    #### list of all the task present in the inventory and from here you can delete and update the task and can also drag and drop through the column.
 
  - ### Responsiveness
