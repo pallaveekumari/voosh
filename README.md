@@ -8,6 +8,12 @@ Together, we shape the future of food service.
 
 🚀 The link for the same is here :https://voosh.ai/
 
+
+## How To Setup
+   ### git clone.
+   ### cd frontend then npm i then npm start.
+   ### cd backend then npm i then npm start.
+  
 ## Pages & Features 👇
 
  - ###  NavBar.
