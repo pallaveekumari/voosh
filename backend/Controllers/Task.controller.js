@@ -1,5 +1,3 @@
-
-
 const { taskModel } = require("../Models/Task.model");
 require("dotenv").config();
 const jwt = require("jsonwebtoken");
@@ -82,10 +80,30 @@ const getAllTasks = async (req, res) => {
     res.status(500).json({ msg: "Something went wrong", error: err.message });
   }
 };
+const handleUpdateStatus=async(req,res)=>{
+  const { id } = req.params;
+  const {status} = req.body;
+  try {
+    const task = await taskModel.findByIdAndUpdate(
+      id,
+      {status, updated_at: Date.now() }
+    );
 
+    if (!task) {
+      return res.status(404).send({ msg: "Task not found" });
+    }
+
+    res.status(200).send({ msg: "Task updated successfully", task });
+  } catch (err) {
+    console.error('Error updating task:', err.message);
+    res.status(500).send({ msg: "Something went wrong", error: err.message });
+  }
+
+}
 module.exports = {
   createTask,
   updateTask,
   deleteTask,
   getAllTasks,
+  handleUpdateStatus
 };

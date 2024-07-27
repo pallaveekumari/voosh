@@ -6,6 +6,7 @@ const {
   updateTask,
   deleteTask,
   getAllTasks,
+  handleUpdateStatus
 } = require("../Controllers/Task.controller");
 
 const AllRoutes = Router();
@@ -20,6 +21,7 @@ AllRoutes.post("/addtask", authentication, createTask);
 AllRoutes.put("/updatetask/:id", authentication, updateTask);
 AllRoutes.delete("/deletetask/:id", authentication, deleteTask);
 AllRoutes.get("/alltask", authentication, getAllTasks);
+AllRoutes.patch("/updateTaskStatus/:id",authentication,handleUpdateStatus)
 
 
 module.exports = AllRoutes;

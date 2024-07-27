@@ -10,16 +10,13 @@ const AppContextProvider = ({ children }) => {
   const [signupBtnLoading, setsignupBtnLoading] = useState(false);
   const [deleteBtnLoading, setdeleteBtnLoading] = useState(false);
   const [productdata, setproductdata] = useState([]);
-const [updateBtnLoading,setUpdateBtnLoading]=useState(false)
- const [isLoggedIn,setIsLoggedIn]=useState(false) 
+  const [updateBtnLoading, setUpdateBtnLoading] = useState(false);
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
 
- const [editData,setEditData]=useState({})
- const [searchTerm, setSearchTerm] = useState("");
+  const [editData, setEditData] = useState({});
+  const [searchTerm, setSearchTerm] = useState("");
   const [sortOrder, setSortOrder] = useState("asc");
 
-
-
-  
   const handleAddsignup = async (signupdata) => {
     try {
       setsignupBtnLoading(true);
@@ -86,7 +83,7 @@ const [updateBtnLoading,setUpdateBtnLoading]=useState(false)
     }
   };
 
-  const handleUpdateTask = async (id,body) => {
+  const handleUpdateTask = async (id, body) => {
     try {
       setUpdateBtnLoading(true);
       const token = localStorage.getItem("token");
@@ -96,7 +93,7 @@ const [updateBtnLoading,setUpdateBtnLoading]=useState(false)
           "Content-Type": "application/json",
           Authorization: `Bearer ${token}`,
         },
-        body:JSON.stringify(body)
+        body: JSON.stringify(body),
       });
 
       const data = await response.json();
@@ -109,13 +106,12 @@ const [updateBtnLoading,setUpdateBtnLoading]=useState(false)
     }
   };
 
-
   const getAllTaskData = async () => {
     try {
       sethomepageDataloading(true);
       const token = localStorage.getItem("token");
       if (!token) throw new Error("No token found");
-  
+
       const response = await fetch("http://localhost:8080/alltask", {
         method: "GET",
         headers: {
@@ -123,7 +119,7 @@ const [updateBtnLoading,setUpdateBtnLoading]=useState(false)
           Authorization: `Bearer ${token}`,
         },
       });
-  
+
       const data = await response.json();
       // console.log(data)
       setproductdata(data.data);
@@ -151,6 +147,33 @@ const [updateBtnLoading,setUpdateBtnLoading]=useState(false)
     } catch (err) {
       console.log("FAILED TO ADD THE PRODUCT ", err);
       return err.status ? err.status : 500;
+    }
+  };
+
+  const handleUpdateStatus = async (id, status) => {
+    try {
+      const token = localStorage.getItem("token");
+      let payload = {
+        status: status,
+      };
+      let updateResponse = await fetch(
+        "http://localhost:8080/updateTaskStatus/" + id,
+        {
+          method: "PATCH",
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${token}`,
+          },
+          body: JSON.stringify(payload),
+        }
+      );
+      if (updateResponse) {
+        return true;
+      } else {
+        return false;
+      }
+    } catch (err) {
+      return false;
     }
   };
 
@@ -198,9 +221,7 @@ const [updateBtnLoading,setUpdateBtnLoading]=useState(false)
         setUpdateBtnLoading,
         handleSearch,
         handleSort,
-
-
-
+        handleUpdateStatus
       }}
     >
       {children}

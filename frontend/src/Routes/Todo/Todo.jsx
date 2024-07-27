@@ -31,6 +31,9 @@ const Todo = () => {
     setSortOrder(e.target.value);
     handleSort(e.target.value);
   };
+  const handleDrop=(e)=>{
+    console.log(e)
+  }
 
   return (
     <>
@@ -68,20 +71,50 @@ const Todo = () => {
           <Box className={styles.eachtodocontainer}>
             <Box className={styles.todotext}>Todo</Box>
             <Box className={styles.taskDatas}>
-              <Draggable>
-                <Card>
-                  {productdata?.map((el, i) => {
-                    return <EachTask element={el} key={i} />;
-                  })}
-                </Card>
-              </Draggable>
+              {productdata?.map((el, i) => {
+                if (el.status == "pending") {
+                  return (
+                    <Draggable onDrag={handleDrop} onStart={handleDrop}>
+                      <Card  onDrop={handleDrop}>
+                        <EachTask element={el} key={i} />
+                      </Card>
+                    </Draggable>
+                  );
+                }
+              })}
             </Box>
           </Box>
           <Box className={styles.eachtodocontainer}>
             <Box className={styles.todotext}>In Progress</Box>
+            <Box className={styles.taskDatas} onDrop={handleDrop}>
+              {productdata?.map((el, i) => {
+                if (el.status == "progress") {
+                  return (
+                    <Draggable>
+                      <Card>
+                        <EachTask element={el} key={i} />
+                      </Card>
+                    </Draggable>
+                  );
+                }
+              })}
+            </Box>
           </Box>
           <Box className={styles.eachtodocontainer}>
             <Box className={styles.todotext}>Done</Box>
+            <Box className={styles.taskDatas}>
+              {productdata?.map((el, i) => {
+                if (el.status == "completed") {
+                  return (
+                    <Draggable>
+                      <Card>
+                        <EachTask element={el} key={i} />
+                      </Card>
+                    </Draggable>
+                  );
+                }
+              })}
+            </Box>
           </Box>
         </Box>
       </Box>

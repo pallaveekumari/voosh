@@ -36,7 +36,7 @@ const AddTask = ({ open, handleClose }) => {
         formData.taskdetails != ""
       ) {
         try{
-        let res = await handleAddTask(formData, token);
+        let res = await handleAddTask({...formData,status:'pending'}, token);
         console.log("response",res)
           alert("Item Added Successfully");
           await getAllTaskData();
