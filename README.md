@@ -8,10 +8,6 @@ Together, we shape the future of food service.
 
 🚀 The link for the same is here :https://voosh.ai/
 
-## How To Run 
- - 
-
-
 ## Pages & Features 👇
 
  - ###  NavBar.
