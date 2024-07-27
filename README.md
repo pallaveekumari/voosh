@@ -25,7 +25,7 @@ Together, we shape the future of food service.
    ### Here you Add task by filling the datafields and also can update and delete the task .
  - ### Login.
 
-   #### User can login by entering the credentials .
+   #### User can login by entering the credentials and also user can login via googleauth.
 
  - ### Private Routes
    #### All the routes are private without login noone can access any page.
