@@ -39,7 +39,7 @@ Together, we shape the future of food service.
 
 
 
-### Netlify Link: 
+### Netlify Link: https://66a535177b4de55a6a4150dc--celadon-moonbeam-d64d8a.netlify.app
 
 ### Github Link: https://github.com/pallaveekumari/voosh
 
